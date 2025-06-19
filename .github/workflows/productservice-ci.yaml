@@ -4,7 +4,10 @@ on:
     branches: [ "main" ] 
     paths:
       - 'ProductService/**'
-      
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'ProductService/**'    
 jobs:
   build:
     runs-on: ubuntu-latest
