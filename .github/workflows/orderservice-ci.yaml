@@ -1,4 +1,4 @@
-name: Build & Push OrderService test
+name: Build & Push OrderService
 on:
   push:
     branches: [ "main" ]
