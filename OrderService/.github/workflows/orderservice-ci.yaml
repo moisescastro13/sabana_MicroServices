@@ -1,0 +1,28 @@
+name: Build & Push OrderService
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'OrderService/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:${{ github.sha }} ./OrderService
+
+      - name: Push to Docker Hub
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:${{ github.sha }}
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:latest
