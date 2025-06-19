@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <Content Include=".github\workflows\orderservice-ci.yaml" />
+      <Content Include=".github\workflows\productservice-ci.yaml" />
     </ItemGroup>
 
 </Project>
