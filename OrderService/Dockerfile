@@ -4,6 +4,7 @@ WORKDIR /src
 
 COPY ["MicroServiceSolution.sln", "."]
 COPY ["OrderService/OrderService.csproj", "OrderService/"]
+COPY ["ProductService/ProductService.csproj", "ProductService/"]
 RUN dotnet restore "MicroServiceSolution.sln" 
 
 COPY . .

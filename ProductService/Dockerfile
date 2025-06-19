@@ -3,6 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 COPY ["MicroServiceSolution.sln", "."]
+COPY ["OrderService/OrderService.csproj", "OrderService/"]
 COPY ["ProductService/ProductService.csproj", "ProductService/"]
 RUN dotnet restore "MicroServiceSolution.sln" 
 
