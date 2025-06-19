@@ -4,10 +4,6 @@ on:
     branches: [ "main" ]
     paths:
       - 'OrderService/**'
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      - 'OrderService/**'
 jobs:
   build:
     runs-on: ubuntu-latest
