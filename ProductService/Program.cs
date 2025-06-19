@@ -18,7 +18,7 @@ app.UseHttpsRedirection();
 
 app.MapGet("/product", () =>
     {
-        return Results.Ok(new[] {"Product1", "Product2"});
+        return Results.Ok(new[] {"Product1", "Product2", "Product3"});
     })
     .WithName("GetProducts")
     .WithOpenApi();
