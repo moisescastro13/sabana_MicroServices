@@ -19,7 +19,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/productservice:${{ github.sha }} ./ProductService
+          docker build -f ProductService/Dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/productservice:${{ github.sha }} ./ProductService
           
       - name: Push to Docker Hub
         run: |

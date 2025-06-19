@@ -19,7 +19,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:${{ github.sha }} ./OrderService
+          docker build -f OrderService/Dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:${{ github.sha }} ./OrderService
 
       - name: Push to Docker Hub
         run: |
