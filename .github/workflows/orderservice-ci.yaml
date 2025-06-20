@@ -26,3 +26,22 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:${{ github.sha }}
           docker tag ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:latest
+
+     - name: Clone infra repo
+        uses: actions/checkout@v3
+        with:
+          repository: moisescastro13/sabana-MicroServices-infra
+          token: ${{ secrets.INFRA_REPO_TOKEN }}
+          path: infra-repo
+
+      - name: Update values.yaml with new image tag
+        run: |
+          sed -i "s|tag: .*|tag: '${{ github.sha }}'|" infra-repo/charts/orderservice/values.yaml
+
+      - name: Commit and push changes to infra repo
+        run: |
+          cd infra-repo
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git commit -am "Update OrderService image tag to ${{ github.sha }}"
+          git push origin main

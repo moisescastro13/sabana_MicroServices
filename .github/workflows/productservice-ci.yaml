@@ -27,10 +27,21 @@ jobs:
           docker tag ${{ secrets.DOCKERHUB_USERNAME }}/productservice:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/productservice:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/productservice:latest
           
-    # - name: Update infra repo (opcional)
-    #  run: |
-    #      git clone https://${{ secrets.INFRA_REPO_TOKEN }}@github.com/moisescastro13/microservices-infra.git
-    #      cd microservices-infra
-    #      sed -i "s/tag: .*/tag: ${{ github.sha }}/" charts/productservice/values.yaml
-    #      git commit -am "Update image tag to ${{ github.sha }}"
-    #      git push
+     - name: Clone infra repo
+        uses: actions/checkout@v3
+        with:
+          repository: moisescastro13/sabana-MicroServices-infra
+          token: ${{ secrets.INFRA_REPO_TOKEN }}
+          path: infra-repo
+
+      - name: Update values.yaml with new image tag
+        run: |
+          sed -i "s|tag: .*|tag: '${{ github.sha }}'|" infra-repo/charts/productservice/values.yaml
+
+      - name: Commit and push changes to infra repo
+        run: |
+          cd infra-repo
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git commit -am "Update ProductService image tag to ${{ github.sha }}"
+          git push origin main
