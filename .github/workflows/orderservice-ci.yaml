@@ -27,7 +27,7 @@ jobs:
           docker tag ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/orderservice:latest
 
-     - name: Clone infra repo
+      - name: Clone infra repo
         uses: actions/checkout@v3
         with:
           repository: moisescastro13/sabana-MicroServices-infra
