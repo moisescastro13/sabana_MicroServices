@@ -23,6 +23,7 @@ app.MapGet("/orders", () =>
     .WithName("GetOrders")
     .WithOpenApi();
 
+app.MapGet("/", ()=> Results.Ok());
 
 app.Run();
 

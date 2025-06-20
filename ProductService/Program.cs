@@ -16,11 +16,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/product", () =>
+app.MapGet("/products", () =>
     {
         return Results.Ok(new[] {"Product1", "Product2", "Product3"});
     })
     .WithName("GetProducts")
     .WithOpenApi();
+
+app.MapGet("/", ()=> Results.Ok());
 
 app.Run();
